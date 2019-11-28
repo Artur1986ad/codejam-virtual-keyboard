@@ -1,19 +1,8 @@
-let wrapper = document.createElement('div');
-let blockarea = document.createElement('textarea');
-let blockkeyboard = document.createElement('div');
-
-let styleelement = `background-color: #D1BC8A`;
-
-wrapper.className = "wrapper";
-blockarea.className = "blockarea";
-blockkeyboard.className = "keyboard";
-wrapper.style.cssText = `width: 1200px;margin: 0 auto;
-`;
-blockarea.style.cssText = ` display : block ; margin : 0 auto ; width : 670px ; height : 220px `;
-blockkeyboard.style.cssText = `margin : 20px auto ; width : 670px ; height : 220px ;display : grid ; grid-template-columns : repeat(46, 1fr) ; grid-template-rows : repeat(5, 1fr) ; grid-gap : 5px ;`;
-document.body.append(wrapper);
-wrapper.append(blockarea);
-wrapper.append(blockkeyboard);
+let wrapper ;
+let blockarea ;
+let blockkeyboard ;
+let styleelement;
+let lang = 3;
 
 const arr = [
     ["Backquote", "`","~","ё","Ё"],
@@ -84,7 +73,6 @@ const arr = [
   ]
 
   /*=======Constructor_element========*/
-  let lang = +localStorage.getItem("lang");
   class Key{
     constructor(value, elem){
       this.value = value;
@@ -119,6 +107,22 @@ const arr = [
   }
 
   /*=================Constructor_end=========*/
+    (function createPage()
+    {
+      wrapper = document.createElement('div');
+      blockarea = document.createElement('textarea');
+      blockkeyboard = document.createElement('div');
+      styleelement = `background-color: #D1BC8A`;
+      wrapper.className = "wrapper";
+      blockarea.className = "blockarea";
+      blockkeyboard.className = "keyboard";
+      wrapper.style.cssText = `width: 1200px;margin: 0 auto;`;
+      blockarea.style.cssText = ` display : block ; margin : 0 auto ; width : 670px ; height : 220px `;
+      blockkeyboard.style.cssText = `margin : 20px auto ; width : 670px ; height : 220px ;display : grid ; grid-template-columns : repeat(46, 1fr) ; grid-template-rows : repeat(5, 1fr) ; grid-gap : 5px ;`;
+      document.body.append(wrapper);
+      wrapper.append(blockarea);
+      wrapper.append(blockkeyboard);
+    })();
 
   function update(){
     for (let item of keyArr) {
@@ -194,7 +198,6 @@ document.addEventListener("keydown", function(e){
   else if (e.shiftKey && lang % 2 !== 0) {
     lang++;
     update();
-    console.log(lang)
   }
 });
 document.addEventListener("keyup", function(e){
@@ -207,3 +210,17 @@ document.addEventListener("keyup", function(e){
     elem.keyoff();
   }
 });
+
+function changeLang()
+{
+  if(lang === 1 || lang === 2)
+  {
+    lang = 3;
+    update();
+  }
+  else if(lang === 3 || lang === 4)
+  {
+    lang = 1;
+    update();
+  }
+}
